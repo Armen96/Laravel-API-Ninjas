@@ -17,7 +17,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','clans_id',
     ];
 
     /**
@@ -44,10 +44,5 @@ class User extends Authenticatable implements JWTSubject
         if ( !empty($password) ) {
             $this->attributes['password'] = bcrypt($password);
         }
-    }
-
-    public function posts()
-    {
-        return $this->hasMany('App\Post');
     }
 }

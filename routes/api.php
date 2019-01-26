@@ -24,5 +24,6 @@ Route::post('/me', 'AuthController@me');
 
 Route::post('/logout', 'AuthController@logout');
 
-Route::get('/posts','PostController@getPosts');
-Route::post('/posts','PostController@createPost');
+Route::post('/clans', 'ClanController@index');
+Route::post('/clans/{id}', 'ClanController@clansMembers');
+
