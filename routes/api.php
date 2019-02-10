@@ -27,3 +27,5 @@ Route::post('/logout', 'AuthController@logout');
 Route::post('/clans', 'ClanController@index');
 Route::post('/clans/{id}', 'ClanController@clansMembers');
 
+Route::post('/upload-file', 'ClanController@uploadFile');
+

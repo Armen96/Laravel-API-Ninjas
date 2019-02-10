@@ -39,16 +39,8 @@ class ClansTableSeeder extends Seeder
             [
                 'id' => 4,
                 'name' => 'Akatsuki',
-                'logo' => 'https://i.pinimg.com/originals/0a/25/0c/0a250c8816e7118e07e869ae51c54cc0.jpg',
+                'logo' => 'http://cdn.shopify.com/s/files/1/1134/0364/products/Naruto_Akatsuki_Red_Cloud_Symbol_Alloy_Pendant_Unique_Necklace_3_1024x1024.jpg?v=1546908871',
                 'force' => 94,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'id' => 5,
-                'name' => 'Ōtsutsuki ',
-                'logo' => 'https://vignette.wikia.nocookie.net/naruto/images/c/cb/%C5%8Ctsutsuki_Symbol.svg/revision/latest/scale-to-width-down/300?cb=20180407042123',
-                'force' => 95,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]

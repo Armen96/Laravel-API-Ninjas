@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Clan extends Model
 {
     protected $fillable = [
-        'name', 'logo', 'slogan',
+        'id','name', 'logo', 'force',
     ];
 
     public function members()
