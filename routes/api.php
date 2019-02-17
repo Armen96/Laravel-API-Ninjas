@@ -29,3 +29,5 @@ Route::post('/clans/{id}', 'ClanController@clansMembers');
 
 Route::post('/upload-file', 'ClanController@uploadFile');
 
+Route::get('/books', 'BooksController@index');
+
