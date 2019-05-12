@@ -24,10 +24,9 @@ Route::post('/me', 'AuthController@me');
 
 Route::post('/logout', 'AuthController@logout');
 
-Route::post('/clans', 'ClanController@index');
-Route::post('/clans/{id}', 'ClanController@clansMembers');
 
-Route::post('/upload-file', 'ClanController@uploadFile');
+//Route::post('/upload-file', 'ClanController@uploadFile');
 
-Route::get('/books', 'BooksController@index');
+
+Route::post('/contact-us', 'AuthController@contactUs');
 

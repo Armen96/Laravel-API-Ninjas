@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,8 +26,8 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized','token' => $token, 'cred' => $credentials ], 403);
         }
 
         return $this->respondWithToken(auth()->user(),$token);
@@ -37,9 +38,11 @@ class AuthController extends Controller
         return response()->json(auth()->user());
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        auth()->logout();
+        if(auth()){
+            auth()->logout();
+        }
 
         return response()->json(['message' => 'Successfully logged out','status' => true]);
     }
@@ -50,7 +53,23 @@ class AuthController extends Controller
             'token' => $token,
             'token_type'   => 'bearer',
             'user' => $user,
-            'expires_in'   => auth()->factory()->getTTL() * 180
+            'expires_in'   => auth()->factory()->getTTL() * 250
         ]);
+    }
+
+    public function contactUs(Request $request)
+    {
+        return response()->json(['data' => $request->all()]);
+    }
+
+    public function uploadFile(Request $request)
+    {
+        $path = $request->file('file')->store('avatars','public');
+        $avatar = new Image();
+        $avatar->user_id = auth()->id();
+        $avatar->image = $path;
+        $avatar->save();
+
+        return response()->json(['data' => $path]);
     }
 }
