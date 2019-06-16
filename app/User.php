@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
@@ -17,7 +18,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','clans_id',
+        'name','company' ,'email', 'password','clans_id',
     ];
 
     /**
@@ -49,5 +50,20 @@ class User extends Authenticatable implements JWTSubject
     public function image()
     {
         $this->hasMany(Image::class,'user_id','id');
+    }
+
+    public function company()
+    {
+        return $this->hasOne(Company::class);
+    }
+
+    public function createCompany($name)
+    {
+        $company = Company::create([
+            'user_id' => Auth::id(),
+            'name' => $name
+        ]);
+
+        return $company;
     }
 }

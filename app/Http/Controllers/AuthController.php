@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Image;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +17,7 @@ class AuthController extends Controller
         ]);
 
         $token = auth()->login($user);
+        $user->createCompany($request->company);
 
         return $this->respondWithToken(auth()->user(),$token);
     }
@@ -49,10 +49,13 @@ class AuthController extends Controller
 
     protected function respondWithToken($user,$token)
     {
+        $relationalUser = User::with('company')->find($user);
+
         return response()->json([
             'token' => $token,
             'token_type'   => 'bearer',
-            'user' => $user,
+            'user' => $relationalUser,
+            'relationalUser' => $relationalUser,
             'expires_in'   => auth()->factory()->getTTL() * 250
         ]);
     }
@@ -62,14 +65,14 @@ class AuthController extends Controller
         return response()->json(['data' => $request->all()]);
     }
 
-    public function uploadFile(Request $request)
-    {
-        $path = $request->file('file')->store('avatars','public');
-        $avatar = new Image();
-        $avatar->user_id = auth()->id();
-        $avatar->image = $path;
-        $avatar->save();
-
-        return response()->json(['data' => $path]);
-    }
+//    public function uploadFile(Request $request)
+//    {
+//        $path = $request->file('file')->store('avatars','public');
+//        $avatar = new Image();
+//        $avatar->user_id = auth()->id();
+//        $avatar->image = $path;
+//        $avatar->save();
+//
+//        return response()->json(['data' => $path]);
+//    }
 }
